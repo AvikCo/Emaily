@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "type": "module",
+  "engine": {
+    "node": "15.2.0",
+    "npm": "7.16.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+   "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
