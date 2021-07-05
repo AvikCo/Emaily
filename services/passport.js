@@ -21,7 +21,10 @@ passport.deserializeUser((id, done)=>{
 passport.use(new GoogleStrategy({
     clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,
-    callbackURL: '/auth/google/callback'
+    callbackURL: '/auth/google/callback',
+    proxy: true,  //heroku uses proxy and our call back ends be being http instead of https , conflict with google redirects
+    //use proxy true makes passport to access types of proxy
+    
   },  (accessToken, refreshToken, profile, done) => {  
        User.findOne({googleId: profile.id})
        .then( existingUser => {
@@ -41,6 +44,7 @@ passport.use(new GoogleStrategy({
      clientID: keys.facebookAppId,
      clientSecret: keys.facebookAppSecret,
      callbackURL: '/auth/facebook/callback',
+     proxy: true,
      profileFields: ['id', 'displayName', 'photos', 'email']
   }, (accessToken, refreshToken, profile, done) => {
        User.findOne({facebookId: profile.id})
