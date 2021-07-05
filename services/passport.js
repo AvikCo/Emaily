@@ -19,7 +19,7 @@ passport.deserializeUser((id, done)=>{
 })
 
 passport.use(new GoogleStrategy({
-    clientID:keys.googleClientID,
+    clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,
     callbackURL: '/auth/google/callback'
   },  (accessToken, refreshToken, profile, done) => {  
@@ -38,14 +38,14 @@ passport.use(new GoogleStrategy({
   );
 
   passport.use(new FacebookStrategy({
-     clientID:keys.facebookAppId,
+     clientID: keys.facebookAppId,
      clientSecret: keys.facebookAppSecret,
      callbackURL: '/auth/facebook/callback',
      profileFields: ['id', 'displayName', 'photos', 'email']
   }, (accessToken, refreshToken, profile, done) => {
        User.findOne({facebookId: profile.id})
           .then(existingUser =>{
-               if(existingUser) done(null, existingUser);
+               if(existingUser) done(null, existingUser   );
                else{
                     new User({facebookId: profile.id})
                          .save()
