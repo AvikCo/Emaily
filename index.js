@@ -32,7 +32,7 @@ mongoose.connect(keys.mongoURI, {
 if(process.env.NODE_ENV === 'production'){
   //Express will serve up production assets
   //like out main.js file or main.css file
-  app.use(epress.static('client/build'));
+  app.use(express.static('client/build'));
 
   //Express will serve up index.html file if it doesn't recogniza the route
   const path = require('path');
