@@ -29,7 +29,7 @@ mongoose.connect(keys.mongoURI, {
   useUnifiedTopology:true,
 });      
 
-if(process.env.NODE_ENV !== 'production'){
+if(process.env.NODE_ENV === 'production'){
   //Express will serve up production assets
   //like out main.js file or main.css file
   app.use(epress.static('client/build'));
