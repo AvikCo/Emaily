@@ -25,36 +25,26 @@ passport.use(new GoogleStrategy({
     proxy: true,  //heroku uses proxy and our call back ends be being http instead of https , conflict with google redirects
     //use proxy true makes passport to access types of proxy
     
-  },  (accessToken, refreshToken, profile, done) => {  
-       User.findOne({googleId: profile.id})
-       .then( existingUser => {
-            if (existingUser) {
-               done(null, existingUser);
-            } else {
-               new User({googleId: profile.id})
-                    .save()
-                    .then(user => done(null, user));
-            }
-       })
-      
+  },  async (accessToken, refreshToken, profile, done) => {  
+      const existingUser = await User.findOne({googleId: profile.id})
+          if (existingUser) return done(null, existingUser);
+
+          const user = await new User({googleId: profile.id}).save()
+           done(null, user);
   })
   );
 
   passport.use(new FacebookStrategy({
      clientID: keys.facebookAppId,
      clientSecret: keys.facebookAppSecret,
-     callbackURL: '/auth/facebook/callback',
+     callbackURL: '/auth/facebook/callback',     
      proxy: true,
      profileFields: ['id', 'displayName', 'photos', 'email']
-  }, (accessToken, refreshToken, profile, done) => {
-       User.findOne({facebookId: profile.id})
-          .then(existingUser =>{
-               if(existingUser) done(null, existingUser   );
-               else{
-                    new User({facebookId: profile.id})
-                         .save()
-                         .then(user => done(null, user))
-               }
-          })
+  }, async (accessToken, refreshToken, profile, done) => {
+       const existingUser = await User.findOne({facebookId: profile.id})
+               if(existingUser) return done(null, existingUser);
+
+               const user = await new User({facebookId: profile.id}).save()
+               done(null, user)
   }));
    
