@@ -21,7 +21,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 require('./routes/authRoutes')(app);
-require('./routes/billingRoutes')(app);  //fetches the authRoute function and directly running
+require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);  //fetches the authRoute function and directly running
 
 mongoose.connect(keys.mongoURI, {
   useNewUrlParser: true,  
