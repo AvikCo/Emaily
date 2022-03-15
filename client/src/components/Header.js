@@ -15,9 +15,7 @@ class Header extends Component{
                     <li>
                             <a href="/auth/google">Login With Google</a>
                         </li>
-                        <li>
-                            <a>Login With Facebook</a>
-                        </li>
+                      
                     </React.Fragment>
                 );
             default:
@@ -29,7 +27,6 @@ class Header extends Component{
     };
 
     render(){ 
-        console.log(this.props);
         return (
             <nav>
                 <div className="nav-wrapper">
